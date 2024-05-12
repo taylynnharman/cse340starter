@@ -1,6 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 /******* Change Box Model ***************/
+:root {
+  --header-font: 'Montserrat', sans-serif;
+  --body-font: Oswald, "Arial Narrow Bold", sans-serif;
+  --primary-color: #25232b;
+  --secondary-color: #6566ce;
+  --light-text: #f1eff4;
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+footer {
+  font-size: small;
+  padding-inline: 15px;
+}
+
+/* Header Start */
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  text-transform: uppercase;
+}
+
+.siteName a {
+  font-family: var(--header-font);
+  font-weight: 300;
+  font-size: x-large;
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.home-myAccount {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+  font-family: oswald;
+}
+
+/* Header End */
+
+/* Nav Start */
+nav ul {
+  background: var(--primary-color);
+  display: flex;
+  color: var(--light-text);
+  list-style: none;
+  justify-content: space-evenly;
+  padding: 20px;
+  font-size: large;
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+/* Nav End */
+
+/* Index Body Start*/
+
+.homepage-header {
+  font-family: var(--header-font);
+  font-weight: 400;
+  font-size: medium;
+  padding: 20px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.hero-message {
+  width: 8rem;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px;
+  position: absolute;
+  top: 30%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  height: 57%;
+}
+
+.hero-message h2 {
+  font-family: var(--header-font);
+  font-weight: 500;
+  font-size: smaller;
+  padding: 10px;
+  text-transform: uppercase;
+  color: var(--secondary-color);
+}
+
+.hero-message ul {
+  padding-left: 10px;
+}
+
+.hero-message li {
+  list-style: none;
+  color: var(--secondary-color);
+  font-family: var(--header-font);
+  font-size: small;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 200px;
+}
+
+.hero img {
+  width: 90%;
+  margin-inline: auto;
+
+}
+
+
+
+.homepage-reviews {
+  line-height: 2rem;
+  font-family: var(--header-font);
+  font-size: smaller;
+  margin: 0;
+}
+
+.upgrades {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.homepage-upgrades {
+  display: flex;
+  flex: 1 0 50%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: var(--secondary-color);
+  padding: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.homepage-upgrades img {
+  max-width: 100%;
+  height: auto;
+}
+
+.homepage-upgrades a {
+  display: block;
+  text-align: center;
+}
+
+@media (min-width: 700px) {
+  .hero img {
+    max-width: 70%;
+  }
 }

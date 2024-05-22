@@ -68,7 +68,7 @@ nav ul {
 
 /* Index Body Start*/
 
-.homepage-header {
+.home-header {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
@@ -78,14 +78,14 @@ nav ul {
 }
 
 .hero-message {
-  width: 8rem;
+  width: 11rem;
   background: rgba(0, 0, 0, 0.4);
-  padding: 20px;
-  position: absolute;
-  top: 30%;
+  padding: 5px;
   left: 15%;
   transform: translate(-50%, -50%);
   height: 57%;
+  position: absolute;
+  top: 40%;
 }
 
 .hero-message h2 {
@@ -108,6 +108,10 @@ nav ul {
   font-size: small;
 }
 
+.hero-button img {
+  width: 20px;
+}
+
 .hero {
   display: flex;
   flex-direction: column;
@@ -115,7 +119,7 @@ nav ul {
   height: 200px;
 }
 
-.hero img {
+.hero-img {
   width: 90%;
   margin-inline: auto;
 
@@ -123,7 +127,7 @@ nav ul {
 
 
 
-.homepage-reviews {
+.home-reviews {
   line-height: 2rem;
   font-family: var(--header-font);
   font-size: smaller;
@@ -131,27 +135,27 @@ nav ul {
 }
 
 .upgrades {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+
 }
 
-.homepage-upgrades {
+.home-upgrades {
   display: flex;
-  flex: 1 0 50%;
-  padding: 10px;
-  box-sizing: border-box;
   background: var(--secondary-color);
   padding: 20px;
-  flex-wrap: wrap;
   justify-content: center;
+  margin: 10px;
+  height: 100px;
 }
 
-.homepage-upgrades img {
+.home-upgrades img {
   max-width: 100%;
   height: auto;
 }
 
-.homepage-upgrades a {
+.home-upgrades a {
   display: block;
   text-align: center;
 }

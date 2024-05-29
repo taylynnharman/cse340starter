@@ -78,27 +78,21 @@ nav ul {
 }
 
 .hero-message {
-  width: 11rem;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(250, 250, 250, 0.75);
   padding: 5px;
-  left: 15%;
-  transform: translate(-50%, -50%);
-  height: 57%;
   position: absolute;
-  top: 40%;
 }
 
 .hero-message h2 {
   font-family: var(--header-font);
   font-weight: 500;
-  font-size: smaller;
-  padding: 10px;
-  text-transform: uppercase;
+  font-size: 15px;
   color: var(--secondary-color);
+  margin: 0px;
 }
 
 .hero-message ul {
-  padding-left: 10px;
+  padding-left: 0px;
 }
 
 .hero-message li {
@@ -109,7 +103,8 @@ nav ul {
 }
 
 .hero-button img {
-  width: 20px;
+  width: 7rem;
+  border-radius: 4px;
 }
 
 .hero {
@@ -127,7 +122,7 @@ nav ul {
 
 
 
-.home-reviews {
+.reviews-list {
   line-height: 2rem;
   font-family: var(--header-font);
   font-size: smaller;
@@ -146,8 +141,9 @@ nav ul {
   background: var(--secondary-color);
   padding: 20px;
   justify-content: center;
-  margin: 10px;
+  margin: 20px 7px 10px 7px;
   height: 100px;
+
 }
 
 .home-upgrades img {
@@ -164,4 +160,63 @@ nav ul {
   .hero img {
     max-width: 70%;
   }
+
+  .home-page-content {
+    display: flex;
+    justify-content: center;
+  }
+
+  .upgrades-div {
+    order: 1;
+  }
+
+  .home-reviews {
+    order: 2;
+  }
+
+  .hero {
+    height: fit-content;
+    margin-block: 30px;
+  }
+
+  .home-header {
+    font-size: x-large;
+  }
+
+  .hero-message {
+    left: 10%;
+    width: 11rem;
+  }
+
+  .hero-message li {
+    font-size: large;
+  }
+
+  .hero-button img {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .reviews-list li {
+    font-size: large;
+    margin-block: 16px;
+  }
+
+  .hero-message h2 {
+    font-size: x-large
+  }
+
+  .body {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  #wrapper {
+    border: 2px var(--secondary-color) solid;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 50px;
+  }
+
+
 }

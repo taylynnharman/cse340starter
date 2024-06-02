@@ -64,6 +64,32 @@ nav ul {
   margin: 0;
 }
 
+nav li {
+  background: var(--primary-color);
+  display: flex;
+  color: var(--light-text);
+  list-style: none;
+  justify-content: space-evenly;
+  padding: 20px;
+  font-size: large;
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+nav a {
+  background: var(--primary-color);
+  display: flex;
+  color: var(--light-text);
+  list-style: none;
+  justify-content: space-evenly;
+  padding: 20px;
+  font-size: large;
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  margin: 0;
+}
+
 /* Nav End */
 
 /* Index Body Start*/

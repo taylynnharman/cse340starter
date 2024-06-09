@@ -78,16 +78,9 @@ nav li {
 }
 
 nav a {
-  background: var(--primary-color);
-  display: flex;
   color: var(--light-text);
-  list-style: none;
-  justify-content: space-evenly;
   padding: 20px;
-  font-size: large;
-  font-family: var(--body-font);
-  text-transform: uppercase;
-  margin: 0;
+  text-decoration: none;
 }
 
 /* Nav End */
@@ -159,7 +152,6 @@ nav a {
   display: grid;
   grid-template-columns: 1fr 1fr;
   text-align: center;
-
 }
 
 .home-upgrades {
@@ -190,6 +182,10 @@ nav a {
   .home-page-content {
     display: flex;
     justify-content: center;
+  }
+
+  .upgrades {
+    font-size: large;
   }
 
   .upgrades-div {

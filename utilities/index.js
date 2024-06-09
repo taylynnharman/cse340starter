@@ -85,4 +85,55 @@ Util.buildClassificationGrid = async function (data) {
 Util.handleErrors = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
 
+/* ****************************************
+ *  function that will take the specific vehicle's information and wrap it up in HTML to deliver to the view
+ **************************************** */
+// Util.buildDetailView = async function (data) {
+//   let grid;
+//   if (data.length > 0) {
+//     // Display the vehicle make and model in the title element and in the main content heading.
+//     // The mileage must display with proper place value commas.
+//     //
+//     grid = '<ul id="inv-display">';
+//     data.forEach((vehicle) => {
+//       grid += "<li>";
+//       grid +=
+//         '<a href="../../inv/detail/' +
+//         vehicle.inv_id +
+//         '" title="View ' +
+//         vehicle.inv_year +
+//         " " +
+//         vehicle.inv_make +
+//         " " +
+//         vehicle.inv_model +
+//         'details"><img src="' +
+//         vehicle.inv_image +
+//         '" alt="Image of ' +
+//         vehicle.inv_miles +
+//         " " +
+//         vehicle.inv_color +
+//         " " +
+//         vehicle.inv_year +
+//         " " +
+//         vehicle.inv_description +
+//         " " +
+//         vehicle.inv_model +
+//         ' on CSE Motors" /></a>';
+//       grid += '<div class="namePrice">';
+//       grid += "<hr />";
+//       grid += "<h2>";
+//       grid += grid += "</h2>";
+//       grid +=
+//         "<span>$" +
+//         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
+//         "</span>";
+//       grid += "</div>";
+//       grid += "</li>";
+//     });
+//     grid += "</ul>";
+//   } else {
+//     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+//   }
+//   return grid;
+// };
 module.exports = Util;

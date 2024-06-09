@@ -8,8 +8,10 @@ async function getClassifications() {
     "SELECT * FROM public.classification ORDER BY classification_name"
   );
 }
-
-module.exports = { getClassifications, getInventoryByClassificationId };
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+};
 
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
@@ -28,3 +30,19 @@ async function getInventoryByClassificationId(classification_id) {
     console.error("getclassificationsbyid error " + error);
   }
 }
+
+/* ***************************
+ *  Get vehicle specific data based on inventory id
+ * ************************** */
+// async function getItemById(item_id) {
+//   try {
+//     const data = await pool.query(
+//       `SELECT * FROM public.inventory AS i
+//       WHERE i.inv_id = $1`,
+//       [item_id]
+//     );
+//     return data.rows[0];
+//   } catch (error) {
+//     console.error("getItemById error " + error);
+//   }
+// }

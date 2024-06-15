@@ -19,31 +19,33 @@ invCont.buildByClassificationId = async function (req, res, next) {
   });
 };
 
-/* ***************************
- *  Build inventory by detail view
- * ************************** */
+invCont.getItemDetail = async function (req, res, next) {
+  try {
+    const item_id = req.params.id;
 
-// invCont.getItemDetail = async function (req, res, next) {
-//   try {
-//     const item_id = req.params.id;
-//     const item = await invModel.getItemById(item_id);
-//     if (!item) {
-//       return res.status(404).json({ message: "Item not found" });
-//     }
+    // Check if item_id is equal to "error" to trigger the error
+    if (item_id === "error") {
+      throw new Error("Intentional server error");
+    }
 
-//     const detail_view = await utilities.buildDetailView(item);
-//     let nav = await utilities.getNav();
+    const item = await invModel.getItemById(item_id);
+    if (!item) {
+      return res.status(404).json({ message: "Vehicle not found" });
+    }
 
-//     res.render("./inventory/itemDetail", {
-//       title: item.name,
-//       nav,
-//       detail_view,
-//       item,
-//     });
-//   } catch (error) {
-//     console.error("Get Item Detail Error:", error); // Log the error for debugging
-//     res.status(500).json({ message: "Server error", error });
-//   }
-// };
+    const detail_view = await utilities.buildDetailView(item);
+    let nav = await utilities.getNav();
+
+    res.render("./inventory/detailView", {
+      title: item.name,
+      nav,
+      detail_view,
+      item,
+    });
+  } catch (error) {
+    console.error("Get Item Detail Error:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+};
 
 module.exports = invCont;

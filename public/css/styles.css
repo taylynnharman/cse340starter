@@ -70,7 +70,6 @@ nav li {
   color: var(--light-text);
   list-style: none;
   justify-content: space-evenly;
-  padding: 20px;
   font-size: large;
   font-family: var(--body-font);
   text-transform: uppercase;
@@ -79,7 +78,6 @@ nav li {
 
 nav a {
   color: var(--light-text);
-  padding: 20px;
   text-decoration: none;
 }
 
@@ -87,7 +85,8 @@ nav a {
 
 /* Index Body Start*/
 
-.home-header {
+.home-header,
+.login-h1 {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
@@ -139,8 +138,6 @@ nav a {
 
 }
 
-
-
 .reviews-list {
   line-height: 2rem;
   font-family: var(--header-font);
@@ -172,6 +169,66 @@ nav a {
 .home-upgrades a {
   display: block;
   text-align: center;
+}
+
+.inv-display {
+  display: flex;
+  padding: 30px;
+  flex-direction: column;
+}
+
+.inv-display img {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.detail-list {
+  list-style: none;
+}
+
+
+
+/* Account Login Start */
+
+.login-form {
+  width: fit-content;
+  text-align: center;
+  background: var(--primary-color);
+  color: var(--light-text);
+  padding: 30px;
+  border-radius: 8px;
+  margin: auto;
+}
+
+.login-form div {
+  line-height: 30px;
+  font-family: var(--header-font);
+  text-align: left;
+}
+
+.login-form input {
+  width: -webkit-fill-available;
+}
+
+.login-form button {
+  background: var(--secondary-color);
+  padding: 10px;
+  color: var(--light-text);
+  font-family: var(--body-font);
+  text-transform: uppercase;
+  border: 0px;
+  border-radius: 4px;
+  margin: auto !;
+  margin-top: 30px;
+}
+
+.register-message {
+  text-align: center;
+}
+
+.register-message a {
+  color: var(--secondary-color);
+  font-weight: bold;
 }
 
 @media (min-width: 700px) {
@@ -228,17 +285,39 @@ nav a {
     font-size: x-large
   }
 
-  .body {
+  body {
     width: 80%;
     margin: 0 auto;
+    background: url("/images/site/checkerboard.jpg");
   }
 
   #wrapper {
-    border: 2px var(--secondary-color) solid;
+    border: 5px var(--secondary-color) solid;
     border-radius: 8px;
     padding: 20px;
     margin: 50px;
+    background: white;
   }
 
+  /* Detail View Start */
+  .inv-display {
+    gap: 30px;
+    flex-direction: row;
+  }
 
+  .namePrice {
+    flex: 1;
+  }
+
+  .inv-display img {
+    width: 100%;
+    margin-inline: auto;
+    flex: 1;
+  }
+
+  .detail-list {
+    list-style: none;
+  }
+
+  /* Detail View End */
 }

@@ -88,52 +88,33 @@ Util.handleErrors = (fn) => (req, res, next) =>
 /* ****************************************
  *  function that will take the specific vehicle's information and wrap it up in HTML to deliver to the view
  **************************************** */
-// Util.buildDetailView = async function (data) {
-//   let grid;
-//   if (data.length > 0) {
-//     // Display the vehicle make and model in the title element and in the main content heading.
-//     // The mileage must display with proper place value commas.
-//     //
-//     grid = '<ul id="inv-display">';
-//     data.forEach((vehicle) => {
-//       grid += "<li>";
-//       grid +=
-//         '<a href="../../inv/detail/' +
-//         vehicle.inv_id +
-//         '" title="View ' +
-//         vehicle.inv_year +
-//         " " +
-//         vehicle.inv_make +
-//         " " +
-//         vehicle.inv_model +
-//         'details"><img src="' +
-//         vehicle.inv_image +
-//         '" alt="Image of ' +
-//         vehicle.inv_miles +
-//         " " +
-//         vehicle.inv_color +
-//         " " +
-//         vehicle.inv_year +
-//         " " +
-//         vehicle.inv_description +
-//         " " +
-//         vehicle.inv_model +
-//         ' on CSE Motors" /></a>';
-//       grid += '<div class="namePrice">';
-//       grid += "<hr />";
-//       grid += "<h2>";
-//       grid += grid += "</h2>";
-//       grid +=
-//         "<span>$" +
-//         new Intl.NumberFormat("en-US").format(vehicle.inv_price) +
-//         "</span>";
-//       grid += "</div>";
-//       grid += "</li>";
-//     });
-//     grid += "</ul>";
-//   } else {
-//     grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
-//   }
-//   return grid;
-// };
+Util.buildDetailView = async function (data) {
+  let detail_view;
+  if (data) {
+    detail_view = `
+      <div id="inv-display" class="inv-display">
+            <img src="${data.inv_image}" alt="${data.inv_year} ${
+      data.inv_make
+    } ${data.inv_model} on CSE Motors" />
+          <div class="namePrice">
+            <h2 class="vehicle-info">${data.inv_year} ${data.inv_make} ${
+      data.inv_model
+    } </h2>
+            <hr />
+            <h3 class="detail-list"><li>Mileage: ${new Intl.NumberFormat(
+              "en-US"
+            ).format(data.inv_miles)}</li>
+             <li>Price: $${new Intl.NumberFormat("en-US").format(
+               data.inv_price
+             )}</li></h3>
+  
+          </div>
+      </div>`;
+  } else {
+    detail_view =
+      '<p class="notice">Sorry, no matching vehicles could be found.</p>';
+  }
+
+  return detail_view;
+};
 module.exports = Util;

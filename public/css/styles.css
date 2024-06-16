@@ -235,6 +235,9 @@ nav a {
   font-weight: bold;
 }
 
+
+
+
 @media (min-width: 700px) {
   .hero img {
     max-width: 70%;

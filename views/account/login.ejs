@@ -14,8 +14,10 @@
     </div>
     <div>
         <label for="password">Password:</label>
-        <input type="password" id="password" name="account_password" pattern="(?=.*\d)(?=.*[A-Z])(?=.*\W).{12,}"
-            required>
+        <input type="password" id="password" name="account_password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special
+            character</span>
     </div>
     <div>
         <button type="submit">Login</button>

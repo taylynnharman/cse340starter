@@ -190,7 +190,8 @@ nav a {
 
 /* Account Login Start */
 
-.login-form {
+.login-form,
+.register-form {
   width: fit-content;
   text-align: center;
   background: var(--primary-color);
@@ -200,17 +201,20 @@ nav a {
   margin: auto;
 }
 
-.login-form div {
+.login-form div,
+.register-form div {
   line-height: 30px;
   font-family: var(--header-font);
   text-align: left;
 }
 
-.login-form input {
+.login-form input,
+.register-form input {
   width: -webkit-fill-available;
 }
 
-.login-form button {
+.login-form button,
+.register-form button {
   background: var(--secondary-color);
   padding: 10px;
   color: var(--light-text);

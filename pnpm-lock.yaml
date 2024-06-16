@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      body-parse:
+        specifier: ^0.1.0
+        version: 0.1.0
+      body-parser:
+        specifier: ^1.20.2
+        version: 1.20.2
       connect-flash:
         specifier: ^0.1.1
         version: 0.1.1
@@ -69,6 +75,9 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
+
+  body-parse@0.1.0:
+    resolution: {integrity: sha512-k0PDF7vZZpspXlwoM8ywh9PIHZokooS0Rek4M8Vekoro7XuuaWVhjgTpdzIRrfKj5oLQahwjn621/4kG4d91xw==}
 
   body-parser@1.20.2:
     resolution: {integrity: sha512-ml9pReCu3M61kGlqoTm2umSXTlRTuGTx0bfYj+uIUKKYycG5NtSbeetV3faSU6R7ajOPw0g/J1PvK4qNy7s5bA==}
@@ -588,6 +597,8 @@ snapshots:
   balanced-match@1.0.2: {}
 
   binary-extensions@2.3.0: {}
+
+  body-parse@0.1.0: {}
 
   body-parser@1.20.2:
     dependencies:

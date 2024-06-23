@@ -199,6 +199,7 @@ nav a {
   padding: 30px;
   border-radius: 8px;
   margin: auto;
+  max-width: 500px;
 }
 
 .login-form div,

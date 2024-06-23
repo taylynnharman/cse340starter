@@ -117,4 +117,16 @@ Util.buildDetailView = async function (data) {
 
   return detail_view;
 };
+
+/* ****************************************
+ *  function that will build management view
+ **************************************** */
+Util.buildManagement = async function () {
+  let management = `
+      <h1>Management View</h1>
+      <a href="/Classifications/AddNew">Add New Classification</a>
+      <a href="/Inventory/AddNew">Add New Inventory Item</a>      
+`;
+  return management;
+};
 module.exports = Util;

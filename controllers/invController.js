@@ -1,6 +1,5 @@
 const invModel = require("../models/inventory-model");
 const utilities = require("../utilities/");
-
 const invCont = {};
 
 /* ***************************
@@ -46,6 +45,28 @@ invCont.getItemDetail = async function (req, res, next) {
     console.error("Get Item Detail Error:", error);
     res.status(500).json({ message: "Server error", error });
   }
+};
+
+// Build Management View
+invCont.buildManagement = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const management = await utilities.buildManagement();
+  res.render("./site-name/inv/", {
+    title: "Managment View",
+    nav,
+    management,
+  });
+};
+
+// Build Add Classification View
+invCont.buildAddClassification = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const add_classification_view = await utilities.addClassification();
+  res.render("./Classifications/AddNew", {
+    title: "Add Classification View",
+    nav,
+    add_classification_view,
+  });
 };
 
 module.exports = invCont;

@@ -13,16 +13,16 @@ router.get(
 // Route to build inventory by detail view
 router.get("/detail/:id", utilities.handleErrors(invController.getItemDetail));
 
-// Route to build management view
-router.get(
-  "site-name/inv/",
-  utilities.handleErrors(invController.buildManagement)
-);
+// Route to trigger error
+router.get("/triggerError", utilities.handleErrors(invController.triggerError));
 
 // Route to build management view
+router.get("/", utilities.handleErrors(invController.buildManagement));
+
+// Route to build add classification view
 router.get(
-  "/Classifications/AddNew",
-  utilities.handleErrors(invController.buildAddClassifications)
+  "/addClassification",
+  utilities.handleErrors(invController.buildAddClassification)
 );
 
 module.exports = router;

@@ -123,10 +123,24 @@ Util.buildDetailView = async function (data) {
  **************************************** */
 Util.buildManagement = async function () {
   let management = `
-      <h1>Management View</h1>
-      <a href="/Classifications/AddNew">Add New Classification</a>
-      <a href="/Inventory/AddNew">Add New Inventory Item</a>      
+      <a href="/inv/addClassification">Add New Classification</a>
+      <a href="/inv/addNew">Add New Inventory Item</a>      
 `;
   return management;
+};
+
+/* ****************************************
+ *  function that will build add classification view
+ **************************************** */
+Util.addClassification = async function () {
+  let addClassification = `
+    <form id="addClassificatoinForm" action="/submit_classification" method="POST">
+    <label for="classificationName">Classification Name:</label><br>
+    <input type="text" id="classificationName" name="classificationName" required><br>
+    <span class="error-message" id="classificationError"></span><br><br>
+    <button type="submit">Submit</button>
+</form>
+`;
+  return addClassification;
 };
 module.exports = Util;

@@ -47,12 +47,23 @@ invCont.getItemDetail = async function (req, res, next) {
   }
 };
 
+// Trigger Error
+invCont.triggerError = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  const triggerError = await utilities.triggerError();
+  res.render("./inventory/triggerError", {
+    title: "Trigger Error View",
+    nav,
+    triggerError,
+  });
+};
+
 // Build Management View
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav();
   const management = await utilities.buildManagement();
-  res.render("./site-name/inv/", {
-    title: "Managment View",
+  res.render("./inventory/management", {
+    title: "Management View",
     nav,
     management,
   });
@@ -62,7 +73,7 @@ invCont.buildManagement = async function (req, res, next) {
 invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav();
   const add_classification_view = await utilities.addClassification();
-  res.render("./Classifications/AddNew", {
+  res.render("./inventory/add-classification", {
     title: "Add Classification View",
     nav,
     add_classification_view,

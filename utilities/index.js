@@ -119,28 +119,12 @@ Util.buildDetailView = async function (data) {
 };
 
 /* ****************************************
- *  function that will build management view
+ *  function that will build default account view
  **************************************** */
-Util.buildManagement = async function () {
-  let management = `
-      <a href="/inv/addClassification">Add New Classification</a>
-      <a href="/inv/addNew">Add New Inventory Item</a>      
+Util.buildAccountView = async function () {
+  let account_view = `
+<div>You're logged in.</div>
 `;
-  return management;
-};
-
-/* ****************************************
- *  function that will build add classification view
- **************************************** */
-Util.addClassification = async function () {
-  let addClassification = `
-    <form id="addClassificatoinForm" action="/submit_classification" method="POST">
-    <label for="classificationName">Classification Name:</label><br>
-    <input type="text" id="classificationName" name="classificationName" required><br>
-    <span class="error-message" id="classificationError"></span><br><br>
-    <button type="submit">Submit</button>
-</form>
-`;
-  return addClassification;
+  return account_view;
 };
 module.exports = Util;

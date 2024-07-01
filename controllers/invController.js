@@ -61,22 +61,18 @@ invCont.triggerError = async function (req, res, next) {
 // Build Management View
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav();
-  const management = await utilities.buildManagement();
   res.render("./inventory/management", {
     title: "Management View",
     nav,
-    management,
   });
 };
 
 // Build Add Classification View
 invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav();
-  const add_classification_view = await utilities.addClassification();
   res.render("./inventory/add-classification", {
     title: "Add Classification View",
     nav,
-    add_classification_view,
   });
 };
 

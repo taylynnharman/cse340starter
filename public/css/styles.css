@@ -86,7 +86,7 @@ nav a {
 /* Index Body Start*/
 
 .home-header,
-.login-h1 {
+h1 {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
@@ -191,7 +191,8 @@ nav a {
 /* Account Login Start */
 
 .login-form,
-.register-form {
+.register-form,
+.add-classification-form {
   width: fit-content;
   text-align: center;
   background: var(--primary-color);
@@ -203,19 +204,22 @@ nav a {
 }
 
 .login-form div,
-.register-form div {
+.register-form div .add-classification-form div {
   line-height: 30px;
   font-family: var(--header-font);
   text-align: left;
 }
 
 .login-form input,
-.register-form input {
+.register-form input,
+.add-classification-form input {
   width: -webkit-fill-available;
 }
 
 .login-form button,
-.register-form button {
+.register-form button,
+.management-button,
+.add-classification-form button {
   background: var(--secondary-color);
   padding: 10px;
   color: var(--light-text);
@@ -223,8 +227,8 @@ nav a {
   text-transform: uppercase;
   border: 0px;
   border-radius: 4px;
-  margin: auto !;
-  margin-top: 30px;
+  margin-top: 15px;
+  text-decoration: none;
 }
 
 .register-message {
@@ -236,7 +240,13 @@ nav a {
   font-weight: bold;
 }
 
-
+.management {
+  display: flex;
+  flex-direction: column;
+  margin-inline: auto;
+  width: fit-content;
+  margin-bottom: 40px;
+}
 
 
 @media (min-width: 700px) {

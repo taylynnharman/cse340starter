@@ -12,6 +12,7 @@ router.get(
   "/register",
   utilities.handleErrors(accountController.buildRegister)
 );
+
 // Process the registration data
 router.post(
   "/register",
@@ -19,4 +20,19 @@ router.post(
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 );
+
+// Process the login request
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
+);
+
+//Route to default account view
+router.get(
+  "./account/account_default",
+  utilities.handleErrors(accountController.buildAccountView)
+);
+
 module.exports = router;

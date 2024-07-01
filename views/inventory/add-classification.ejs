@@ -4,4 +4,9 @@
 </h1>
 
 <!-- Item Details Display -->
-<%- add_classification_view %>
+<form class="add-classification-form" id="addClassificationForm" action="/submit_classification" method="POST">
+    <label for="classificationName">Classification Name:</label><br>
+    <input type="text" id="classificationName" name="classificationName" required><br>
+    <span class="error-message" id="classificationError"></span><br><br>
+    <button type="submit">Submit</button>
+</form>

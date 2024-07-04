@@ -25,4 +25,10 @@ router.get(
   utilities.handleErrors(invController.buildAddClassification)
 );
 
+// Route to build add vehicle view
+router.get(
+  "/addInventory",
+  utilities.handleErrors(invController.buildAddInventory)
+);
+
 module.exports = router;

@@ -4,9 +4,13 @@
 </h1>
 
 <!-- Item Details Display -->
-<form class="add-classification-form" id="addClassificationForm" action="/submit_classification" method="POST">
-    <label for="classificationName">Classification Name:</label><br>
-    <input type="text" id="classificationName" name="classificationName" required><br>
-    <span class="error-message" id="classificationError"></span><br><br>
+<form class="add-classification-form" id="addClassificationForm" action="/inv" method="POST">
+    <div>
+        <label for="classificationName">Classification Name:</label><br>
+        <input type="text" id="classificationName" name="classification_name" required pattern="^[a-zA-Z0-9]+$"
+            title="Classification name cannot contain spaces or special characters.">
+        <span>Classification name cannot contain spaces or special characters.</span>
+    </div>
+    <span class="error-message" id="classificationError"></span>
     <button type="submit">Submit</button>
 </form>

@@ -1,0 +1,38 @@
+<!-- Content Heading -->
+<h1>
+    <%= title %>
+</h1>
+
+<!-- Item Details Display -->
+<form class="add-classification-form" id="addClassificationForm" action="/inv" method="POST">
+    <div>
+        <label for="make">Make:</label>
+        <input type="text" id="inv_make" name="inv_make" required>
+    </div>
+    <div>
+        <label for="model">Model:</label>
+        <input type="text" id="inv_model" name="inv_model" required>
+    </div>
+    <div>
+        <label for="year">Year:</label>
+        <input type="number" id="inv_year" name="inv_year" required>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <input type="text" id="inv_description" name="inv_description" required>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input type="number" id="inv_price" name="inv_price" required>
+    </div>
+    <div>
+        <label for="miles">Miles:</label>
+        <input type="number" id="inv_miles" name="inv_miles" required>
+    </div>
+    <div>
+        <label for="color">Color:</label>
+        <input type="text" id="inv_color" name="inv_color" required>
+    </div>
+    <span class="error-message" id="addVehicleError"></span>
+    <button type="submit">Submit</button>
+</form>

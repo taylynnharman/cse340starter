@@ -2,6 +2,7 @@ const utilities = require(".");
 const { body, validationResult } = require("express-validator");
 const validate = {};
 const accountModel = require("../models/account-model");
+const invModel = require("../models/inventory-model");
 
 /*  **********************************
  *  Registration Data Validation Rules
@@ -111,6 +112,50 @@ validate.checkLoginData = async (req, res, next) => {
     res.render("/views/account/account", {
       errors: null,
       title: "Login Successsful",
+      nav,
+      account_view,
+    });
+    return;
+  }
+  next();
+};
+
+/*  **********************************
+ *  Classification Data Validation Rules
+ * ********************************* */
+validate.addClassificationRules = () => {
+  return [
+    // valid classification is required and cannot already exist in the database
+    body("classification_name")
+      .trim()
+      .withMessage("A new classification is required.")
+      .custom(async (classification_name) => {
+        const classificationExists = await invModel.checkExistingClassification(
+          classification_name
+        );
+        if (classificationExists) {
+          throw new Error("Classification exists. Please try again");
+        }
+      }),
+    // classification name passes rules
+    body("classification_name")
+      .trim()
+      .notEmpty()
+      .matches(/^[^\s!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/)
+      .withMessage("Classification name does not meet requirements."),
+  ];
+};
+
+// Check Classification
+validate.checkAddClassification = async (req, res, next) => {
+  const { classification_name } = req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("/inv/", {
+      errors: null,
+      title: "Classification Added",
       nav,
       account_view,
     });

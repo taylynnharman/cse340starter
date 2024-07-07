@@ -118,16 +118,6 @@ Util.buildDetailView = async function (data) {
   return detail_view;
 };
 
-/* ****************************************
- *  function that will build default account view
- **************************************** */
-Util.buildAccountView = async function () {
-  let account_view = `
-<div>You're logged in.</div>
-`;
-  return account_view;
-};
-
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications();
   let classificationList =

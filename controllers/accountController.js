@@ -116,7 +116,7 @@ async function accountLogin(req, res) {
           maxAge: 3600 * 1000,
         });
       }
-      return res.redirect("./account/account_default");
+      return res.redirect("/account");
     }
   } catch (error) {
     return new Error("Access Forbidden");
@@ -126,11 +126,9 @@ async function accountLogin(req, res) {
 // Build Account View
 async function buildAccountView(req, res, next) {
   let nav = await utilities.getNav();
-  let account_view = await utilities.buildAccountView();
-  res.render("./account/account_default", {
+  res.render("../views/account/account_default.ejs", {
     title: "Account View",
     nav,
-    account_view,
   });
 }
 

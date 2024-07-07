@@ -70,7 +70,7 @@ invCont.buildManagement = async function (req, res, next) {
 // Build Add Classification View
 invCont.buildAddClassification = async function (req, res, next) {
   let nav = await utilities.getNav();
-  res.render("./inventory/add-classification", {
+  res.render("./inventory/addClassification", {
     title: "Add Classification View",
     nav,
   });
@@ -88,27 +88,37 @@ invCont.buildAddInventory = async function (req, res, next) {
 /* ****************************************
  *  Process New Classification
  * *************************************** */
-invCont.addClassifcation = async function (req, res) {
-  let nav = await utilities.getNav();
-  const { classification_name } = req.body;
+invCont.addClassification = async function (req, res) {
+  try {
+    let { classification_name } = req.body;
 
-  const regResult = await invModel.addClassifcation(classification_name);
+    classification_name =
+      classification_name.charAt(0).toUpperCase() +
+      classification_name.slice(1).toLowerCase();
 
-  if (regResult) {
+    // Add the classification
+    const regResult = await invModel.addClassification(classification_name);
+
+    if (regResult) {
+      // Set success flash message
+      req.flash("notice", `${classification_name} added to classifications.`);
+
+      // Redirect to a success page or view
+      res.redirect("/inv/");
+    } else {
+      // Set error flash message
+      req.flash("notice", "Sorry, an error occurred. Please try again.");
+
+      // Redirect back to the form
+      res.redirect("/inventory/addClassification");
+    }
+  } catch (error) {
+    console.error(error);
     req.flash(
       "notice",
-      `Successful. ${classification_name} added to classifications.`
+      "An unexpected error occurred. Please try again later."
     );
-    res.status(201).render("./inventory/management", {
-      title: "Add to Inventory",
-      nav,
-    });
-  } else {
-    req.flash("notice", "Sorry, an error occurred. Please try.");
-    res.status(500).render("./inventory/add-classification", {
-      title: "Add Classification",
-      nav,
-    });
+    res.redirect("/inventory/addClassification");
   }
 };
 

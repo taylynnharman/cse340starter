@@ -49,22 +49,18 @@ async function getItemById(item_id) {
     console.error("getItemById error " + error);
   }
 }
-/* *****************************
- *   Add New Classification
- * *************************** */
 async function addClassification(classification_name) {
   try {
     const sql =
       "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *";
-    return await pool.query(sql, [classification_name]);
+    const result = await pool.query(sql, [classification_name]);
+    return result.rows[0];
   } catch (error) {
-    return error.message;
+    console.error("Error adding classification:", error);
+    throw new Error("Database operation failed.");
   }
 }
 
-/* **********************
- *   Check for existing classification
- * ********************* */
 async function checkExistingClassification(classification_name) {
   try {
     const sql = "SELECT * FROM classification WHERE classification_name = $1";

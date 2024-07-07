@@ -1,12 +1,11 @@
 <!-- Content Heading -->
-<% if (title) { %>
-    <h1>
-        <%= title %>
-    </h1>
-    <% } else { res.redirect('/') } %>
+<h1>
+    <%= title %>
+</h1>
 
-        <!-- Message -->
-        <%- messages() %>
 
-            <!-- Inventory Items Display -->
-            <%- account_view %>
+<!-- Message -->
+<%- messages() %>
+
+    <!-- Main -->
+    <p>You're logged in</p>

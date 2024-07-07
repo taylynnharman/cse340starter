@@ -30,9 +30,6 @@ router.post(
 );
 
 //Route to default account view
-router.get(
-  "./account/account_default",
-  utilities.handleErrors(accountController.buildAccountView)
-);
+router.get("/", utilities.handleErrors(accountController.buildAccountView));
 
 module.exports = router;

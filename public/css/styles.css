@@ -192,7 +192,8 @@ h1 {
 
 .login-form,
 .register-form,
-.add-classification-form {
+.add-classification-form,
+.edit-classification-form {
   width: fit-content;
   text-align: center;
   background: var(--primary-color);
@@ -206,7 +207,9 @@ h1 {
 
 .login-form div,
 .register-form div,
-.add-classification-form div {
+.add-classification-form div,
+.classificationList div,
+.edit-classification-form div {
   line-height: 30px;
   font-family: var(--header-font);
   text-align: left;
@@ -214,14 +217,22 @@ h1 {
 
 .login-form input,
 .register-form input,
-.add-classification-form input {
+.add-classification-form input,
+.classificationList select,
+.edit-classification-form input,
+.edit-classification-form select,
+.edit-classification-form textarea {
   width: -webkit-fill-available;
+  padding-block: 1px;
+  font-family: var(--header-font);
 }
+
 
 .login-form button,
 .register-form button,
 .management-button,
-.add-classification-form button {
+.add-classification-form button,
+.edit-classification-form button {
   background: var(--secondary-color);
   padding: 10px;
   color: var(--light-text);

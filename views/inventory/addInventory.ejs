@@ -4,7 +4,7 @@
 </h1>
 
 <!-- Item Details Display -->
-<form class="add-classification-form" id="addClassificationForm" action="/inv" method="POST">
+<form class="add-classification-form" id="addClassificationForm" action="/inv/addInventory" method="POST">
     <div>
         <label for="make">Make:</label>
         <input type="text" id="inv_make" name="inv_make" required>
@@ -33,6 +33,7 @@
         <label for="color">Color:</label>
         <input type="text" id="inv_color" name="inv_color" required>
     </div>
-    <span class="error-message" id="addVehicleError"></span>
-    <button type="submit">Submit</button>
+    <%- classificationList %>
+        <span class="error-message" id="addVehicleError"></span>
+        <button type="submit">Submit</button>
 </form>

@@ -3,7 +3,7 @@ const express = require("express");
 const router = new express.Router();
 const invController = require("../controllers/invController");
 const utilities = require("../utilities/index");
-const invValidate = require("../utilities/data-validation");
+const invValidate = require("../utilities/inventory-validation");
 
 // Route to build inventory by classification view
 router.get(
@@ -47,5 +47,25 @@ router.get(
 // invValidate.checkRegData,
 // utilities.handleErrors(accountController.registerAccount)
 // );
+
+router.get("/getInventory/:classification_id");
+
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+// Route to edit inventory
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(invController.editInventoryView)
+);
+
+// Route to update inventory
+router.post(
+  "/update/",
+  invValidate.checkUpdateData,
+  utilities.handleErrors(invController.updateInventory)
+);
 
 module.exports = router;

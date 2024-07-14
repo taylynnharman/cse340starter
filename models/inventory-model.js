@@ -8,13 +8,6 @@ async function getClassifications() {
     "SELECT * FROM public.classification ORDER BY classification_name"
   );
 }
-module.exports = {
-  getClassifications,
-  getInventoryByClassificationId,
-  getItemById,
-  checkExistingClassification,
-  addClassification,
-};
 
 /* ***************************
  *  Get all inventory items and classification_name by classification_id
@@ -49,6 +42,10 @@ async function getItemById(item_id) {
     console.error("getItemById error " + error);
   }
 }
+
+/* ***************************
+ *  Add Classification to Database
+ * ************************** */
 async function addClassification(classification_name) {
   try {
     const sql =
@@ -56,11 +53,13 @@ async function addClassification(classification_name) {
     const result = await pool.query(sql, [classification_name]);
     return result.rows[0];
   } catch (error) {
-    console.error("Error adding classification:", error);
     throw new Error("Database operation failed.");
   }
 }
 
+/* ***************************
+ *  Check if Classification already exists in database
+ * ************************** */
 async function checkExistingClassification(classification_name) {
   try {
     const sql = "SELECT * FROM classification WHERE classification_name = $1";
@@ -70,3 +69,89 @@ async function checkExistingClassification(classification_name) {
     return error.message;
   }
 }
+
+/* ***************************
+ *  Add Inventory to Database
+ * ************************** */
+async function addInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *";
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id,
+    ]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("model error: " + error);
+  }
+}
+
+/* ***************************
+ *  Update Inventory in Database
+ * ************************** */
+async function updateInventory(
+  inv_id,
+  inv_make,
+  inv_model,
+  inv_description,
+  inv_image,
+  inv_thumbnail,
+  inv_price,
+  inv_year,
+  inv_miles,
+  inv_color,
+  classification_id
+) {
+  try {
+    const sql =
+      "UPDATE public.inventory SET inv_make = $1, inv_model = $2, inv_description = $3, inv_image = $4, inv_thumbnail = $5, inv_price = $6, inv_year = $7, inv_miles = $8, inv_color = $9, classification_id = $10 WHERE inv_id = $11 RETURNING *";
+    const data = await pool.query(sql, [
+      inv_make,
+      inv_model,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_year,
+      inv_miles,
+      inv_color,
+      classification_id,
+      inv_id,
+    ]);
+    return data.rows[0];
+  } catch (error) {
+    console.error("model error: " + error);
+  }
+}
+
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getItemById,
+  checkExistingClassification,
+  addClassification,
+  addInventory,
+  updateInventory,
+};

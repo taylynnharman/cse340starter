@@ -45,9 +45,6 @@ validate.checkClassificationData = async (req, res, next) => {
     });
     return;
   }
-
-  // Log when there are no validation errors and the function proceeds to the next middleware
-  console.log("No validation errors. Proceeding to the next middleware.");
   next();
 };
 

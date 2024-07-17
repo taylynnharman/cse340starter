@@ -41,7 +41,8 @@ header {
   color: var(--primary-color);
 }
 
-.home-myAccount {
+.home-myAccount,
+.myAccountLinks a {
   text-decoration: none;
   text-transform: uppercase;
   color: var(--secondary-color);
@@ -86,7 +87,8 @@ nav a {
 /* Index Body Start*/
 
 .home-header,
-h1 {
+h1,
+h2 {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
@@ -186,7 +188,30 @@ h1 {
   list-style: none;
 }
 
+/* Classification Page Start */
+.classification-page {
+  list-style: none;
+  padding-left: 0px;
+}
 
+.classification-page h2 {
+  padding-inline: 0px;
+}
+
+.classification-page li:nth-child(even) {
+  background-color: #f3f3f3;
+  padding: 20px;
+}
+
+.classification-page li:nth-child(odd) {
+  border: solid 1px #f3f3f3;
+  padding: 20px;
+}
+
+.classification-page a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
 
 /* Account Login Start */
 
@@ -242,6 +267,15 @@ h1 {
   border-radius: 4px;
   margin-top: 15px;
   text-decoration: none;
+  cursor: pointer;
+}
+
+.edit-classification-form button:disabled {
+  cursor: default;
+}
+
+.edit-classification-form button:not(:disabled) {
+  cursor: pointer;
 }
 
 .register-message {
@@ -261,6 +295,51 @@ h1 {
   margin-bottom: 40px;
 }
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+
+}
+
+table thead tr {
+  background-color: var(--secondary-color);
+  color: #ffffff;
+  text-align: left;
+  font-family: var(--body-font);
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+}
+
+table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.modify-link,
+.delete-link {
+  color: #009879;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.edit-inventory {
+  padding-inline: 20px;
+}
+
+.classificationList {
+  font-family: var(--body-font);
+  text-transform: uppercase;
+}
 
 @media (min-width: 700px) {
   .hero img {

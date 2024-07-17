@@ -132,10 +132,38 @@ async function buildAccountView(req, res, next) {
   });
 }
 
+/* ****************************************
+ *  Logout
+ * ************************************ */
+function logout(req, res) {
+  // Set the flash message before destroying the session
+  req.flash("notice", "Logged Out.");
+
+  // Destroy the session
+  req.session.destroy((err) => {
+    if (err) {
+      // Handle error if needed
+      req.flash("error", "Error logging out. Please try again.");
+      return res.redirect("/");
+    }
+
+    // Clear the cookies
+    res.clearCookie("sessionId");
+    res.clearCookie("jwt");
+
+    // Set the local variable to indicate the user is logged out
+    res.locals.loggedin = 0;
+
+    // Redirect to the homepage
+    return res.redirect("/");
+  });
+}
+
 module.exports = {
   buildLogin,
   buildRegister,
   registerAccount,
   accountLogin,
   buildAccountView,
+  logout,
 };

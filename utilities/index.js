@@ -32,7 +32,7 @@ Util.getNav = async function (req, res, next) {
 Util.buildClassificationGrid = async function (data) {
   let grid;
   if (data.length > 0) {
-    grid = '<ul id="inv-display">';
+    grid = '<ul id="inv-display" class="classification-page">';
     data.forEach((vehicle) => {
       grid += "<li>";
       grid +=
@@ -120,6 +120,9 @@ Util.buildDetailView = async function (data) {
   return detail_view;
 };
 
+/* ****************************************
+ * Build Classification List
+ **************************************** */
 Util.buildClassificationList = async function (classification_id = null) {
   let data = await invModel.getClassifications();
   console.log("data", data);

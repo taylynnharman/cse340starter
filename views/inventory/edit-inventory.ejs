@@ -4,7 +4,7 @@
 </h1>
 
 <!-- Item Details Display -->
-<form class="edit-classification-form" id="editClassificationForm" action="/inv/update" method="POST">
+<form class="edit-classification-form" id="updateForm" action="/inv/update" method="POST">
     <div>
         <label for="make">Make:</label>
         <input type="text" id="inv_make" name="inv_make" value="<%= inv_make %>" required>
@@ -38,6 +38,7 @@
         <%- classificationSelect %>
     </div>
     <span class="error-message" id="editVehicleError"></span>
-    <button type="submit">Update Vehicle</button>
+    <button type="submit" disabled>Update Vehicle</button>
     <input type="hidden" name="inv_id" value="<%= inv_id %>">
 </form>
+<script src="/js/inv-update.js"></script>

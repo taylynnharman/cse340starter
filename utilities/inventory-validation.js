@@ -48,7 +48,9 @@ validate.checkClassificationData = async (req, res, next) => {
   next();
 };
 
-// Utility function to validate inventory data
+/*  **********************************
+ *  Utility function to validate inventory data
+ * ********************************* */
 validate.checkInventoryData = async (req, res, next) => {
   const errors = [];
   const data = req.body;

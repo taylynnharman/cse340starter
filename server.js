@@ -33,6 +33,7 @@ app.use(
     name: "sessionId",
   })
 );
+
 app.use(utilities.loginStatus);
 
 // Express Messages Middleware

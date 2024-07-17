@@ -36,4 +36,6 @@ router.get(
   utilities.handleErrors(accountController.buildAccountView)
 );
 
+router.get("/logout", utilities.handleErrors(accountController.logout));
+
 module.exports = router;

@@ -182,11 +182,8 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
-// checkLoginStatus
-
 Util.loginStatus = (req, res, next) => {
   res.locals.clientLoggedIn = req.session && req.session.user ? true : false;
-  next();
 };
 
 module.exports = Util;

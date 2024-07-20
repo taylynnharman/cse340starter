@@ -7,5 +7,16 @@
 <!-- Message -->
 <%- messages() %>
 
-    <!-- Main -->
-    <p>You're logged in</p>
+    <!-- Greeting -->
+    <h2 class="welcome">Welcome <%= firstName %>!
+    </h2>
+
+    <a href="/account/update/<%= account_id %>" class="update-link">Update Account Information</a>
+
+    <!-- Inventory Management for Employee or Admin -->
+    <% if (accountType==="Employee" || accountType==="Admin" ) { %>
+        <div class="access-inv">
+            <h3>Inventory Management</h3>
+            <p><a href="/inv">Access Inventory Management</a></p>
+        </div>
+        <% } %>

@@ -126,9 +126,14 @@ async function accountLogin(req, res) {
 // Build Account View
 async function buildAccountView(req, res, next) {
   let nav = await utilities.getNav();
+  const accountData = res.locals.accountData;
   res.render("../views/account/account_default.ejs", {
     title: "Account View",
     nav,
+    accountType: accountData.account_type,
+    firstName: accountData.account_firstname,
+    account_id: accountData.account_id,
+    errors: null,
   });
 }
 

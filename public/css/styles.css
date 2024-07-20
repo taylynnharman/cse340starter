@@ -88,7 +88,8 @@ nav a {
 
 .home-header,
 h1,
-h2 {
+h2,
+.access-inv h3 {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
@@ -288,6 +289,11 @@ h2 {
   color: var(--secondary-color)
 }
 
+h2.welcome {
+  text-align: center;
+  text-transform: capitalize;
+  font-family: var(--header-font);
+}
 
 
 .edit-classification-form button:disabled {
@@ -302,9 +308,16 @@ h2 {
   text-align: center;
 }
 
-.register-message a {
+.register-message a,
+.access-inv a,
+.update-link {
   color: var(--secondary-color);
   font-weight: bold;
+}
+
+.access-inv a,
+.update-link {
+  padding-inline: 20px;
 }
 
 .management {

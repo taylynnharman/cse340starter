@@ -14,11 +14,21 @@ router.get(
 // Route to build inventory by detail view
 router.get("/detail/:id", utilities.handleErrors(invController.getItemDetail));
 
+// Route to post reviews on detail view
+router.post("/detail/:id", utilities.handleErrors(invController.submitReview));
+
 // Route to trigger error
 router.get("/triggerError", utilities.handleErrors(invController.triggerError));
 
-// Route to build management view
-router.get("/", utilities.handleErrors(invController.buildManagement));
+// Route to build management view  Util.checkJWTToken,
+
+utilities.handleErrors(invController.buildManagement);
+router.get(
+  "/",
+  utilities.checkJWTToken,
+  utilities.checkAccountType(["Employee", "Admin"]),
+  utilities.handleErrors(invController.buildManagement)
+);
 
 // Route to build add classification view
 router.get(
@@ -40,14 +50,6 @@ router.get(
   utilities.handleErrors(invController.buildAddInventory)
 );
 
-// Process the registration data
-// router.post(
-//   "/inv"
-// invValidate.registationRules(),
-// invValidate.checkRegData,
-// utilities.handleErrors(accountController.registerAccount)
-// );
-
 router.get("/getInventory/:classification_id");
 
 router.get(
@@ -67,5 +69,7 @@ router.post(
   invValidate.checkUpdateData,
   utilities.handleErrors(invController.updateInventory)
 );
+
+router.get("/");
 
 module.exports = router;

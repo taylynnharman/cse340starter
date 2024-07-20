@@ -30,12 +30,12 @@ async function getInventoryByClassificationId(classification_id) {
 /* ***************************
  *  Get vehicle specific data based on inventory id
  * ************************** */
-async function getItemById(item_id) {
+async function getItemById(inv_id) {
   try {
     const data = await pool.query(
       `SELECT * FROM public.inventory AS i
       WHERE i.inv_id = $1`,
-      [item_id]
+      [inv_id]
     );
     return data.rows[0];
   } catch (error) {
@@ -145,6 +145,35 @@ async function updateInventory(
     console.error("model error: " + error);
   }
 }
+/* ***************************
+ *  Get reviews data based on inventory id
+ * ************************** */
+async function getReviewsById(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.reviews WHERE inv_id = $1`,
+      [inv_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("getReviewsById error " + error);
+  }
+}
+
+/* ***************************
+ *  Add Review
+ * ************************** */
+async function insertReviewById(review_text, inv_id, account_id) {
+  try {
+    const sql =
+      "INSERT INTO reviews (review_text, inv_id, account_id) VALUES ($1, $2, $3) RETURNING *";
+    const result = await pool.query(sql, [review_text, inv_id, account_id]);
+    return result.rows[0];
+  } catch (error) {
+    console.error("Database operation failed:", error);
+    throw new Error("Database operation failed.");
+  }
+}
 
 module.exports = {
   getClassifications,
@@ -154,4 +183,6 @@ module.exports = {
   addClassification,
   addInventory,
   updateInventory,
+  getReviewsById,
+  insertReviewById,
 };

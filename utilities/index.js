@@ -150,6 +150,9 @@ Util.buildClassificationList = async function (classification_id = null) {
  * Middleware to check token validity
  **************************************** */
 Util.checkJWTToken = (req, res, next) => {
+  res.locals.accountData = null;
+  res.locals.loggedin = 0;
+
   if (req.cookies.jwt) {
     jwt.verify(
       req.cookies.jwt,
@@ -162,12 +165,30 @@ Util.checkJWTToken = (req, res, next) => {
         }
         res.locals.accountData = accountData;
         res.locals.loggedin = 1;
+        console.log("JWT verified, accountData:", accountData);
         next();
       }
     );
   } else {
     next();
   }
+};
+
+/* ****************************************
+ * Middleware to check account type
+ **************************************** */
+Util.checkAccountType = (requiredTypes) => {
+  return (req, res, next) => {
+    const accountData = res.locals.accountData;
+    console.log("Checking account type, accountData:", accountData);
+
+    if (accountData && requiredTypes.includes(accountData.account_type)) {
+      next();
+    } else {
+      req.flash("error", "Access denied. Insufficient permissions.");
+      res.redirect("/account/login");
+    }
+  };
 };
 
 /* ****************************************
@@ -187,6 +208,61 @@ Util.checkLogin = (req, res, next) => {
 Util.loginStatus = (req, res, next) => {
   res.locals.clientLoggedIn = req.session && req.session.user ? true : false;
   next();
+};
+
+/* ****************************************
+ * Build Reviews List
+ **************************************** */
+Util.buildReviewsList = async function (inv_id, loggedIn) {
+  // Fetch the reviews for the given inv_id
+  let data = await invModel.getReviewsById(inv_id);
+  console.log("data", data);
+  let reviewsList = '<div class="reviewsList"><h2>Reviews</h2>';
+
+  // Check if there are no reviews
+  if (!data || data.length === 0) {
+    reviewsList += "<div class='reviewsList-body'>";
+    reviewsList += "<p>Be the first to leave a review!</p>";
+
+    // Check if the user is logged in
+    if (!loggedIn || loggedIn === "undefined") {
+      reviewsList +=
+        "<p>You must be <a class='review-login' href='/account/login'>logged in</a> to leave a review</p>";
+    } else {
+      reviewsList += `<div class="reviews-form">
+             <h3>Write a review</h3>
+             <form method="POST" action="/inv/detail/${inv_id}">
+               <div>
+                 <label for="user">Username:</label>
+                 <input type="text" id="username" name="username" required>
+               </div>
+               <div>
+                 <label for="review">Review: </label>
+                 <textarea id="review_text" name="review_text" required></textarea>
+               </div>
+               <div>
+                 <button type="submit">Submit Review</button>
+               </div>
+             </form>
+           </div>`;
+    }
+  } else {
+    // Render reviews if they exist
+    reviewsList += "<ul>";
+
+    data.forEach((row) => {
+      reviewsList += "<li>";
+      reviewsList += "<p>" + row.review_text + "</p>";
+      reviewsList += "<p>By: " + row.reviewer_name + "</p>";
+      reviewsList += "</li>";
+    });
+
+    reviewsList += "</ul>";
+  }
+
+  reviewsList += "</div>";
+
+  return reviewsList;
 };
 
 module.exports = Util;

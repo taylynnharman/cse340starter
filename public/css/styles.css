@@ -188,6 +188,16 @@ h2 {
   list-style: none;
 }
 
+.reviewsList {
+  padding-bottom: 30px;
+}
+
+.reviewsList-body {
+  font-family: var(--header-font);
+  width: -webkit-fill-available;
+  margin-inline: 30px;
+}
+
 /* Classification Page Start */
 .classification-page {
   list-style: none;
@@ -246,7 +256,9 @@ h2 {
 .classificationList select,
 .edit-classification-form input,
 .edit-classification-form select,
-.edit-classification-form textarea {
+.edit-classification-form textarea,
+.reviews-form input,
+.reviews-form textarea {
   width: -webkit-fill-available;
   padding-block: 1px;
   font-family: var(--header-font);
@@ -257,7 +269,8 @@ h2 {
 .register-form button,
 .management-button,
 .add-classification-form button,
-.edit-classification-form button {
+.edit-classification-form button,
+.reviews-form button {
   background: var(--secondary-color);
   padding: 10px;
   color: var(--light-text);
@@ -269,6 +282,13 @@ h2 {
   text-decoration: none;
   cursor: pointer;
 }
+
+.review-login {
+  text-decoration: none;
+  color: var(--secondary-color)
+}
+
+
 
 .edit-classification-form button:disabled {
   cursor: default;
@@ -391,6 +411,10 @@ table tbody tr:nth-of-type(even) {
     margin-block: 16px;
   }
 
+  .reviewsList-body {
+    width: 60%;
+  }
+
   .hero-message h2 {
     font-size: x-large
   }
@@ -420,14 +444,13 @@ table tbody tr:nth-of-type(even) {
   }
 
   .inv-display img {
-    width: 100%;
-    margin-inline: auto;
-    flex: 1;
+    width: 60%;
   }
 
   .detail-list {
     list-style: none;
   }
+
 
   /* Detail View End */
 }

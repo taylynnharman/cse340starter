@@ -23,18 +23,16 @@ invCont.buildByClassificationId = async function (req, res, next) {
  * ************************** */
 invCont.getItemDetail = async function (req, res, next) {
   try {
-    const item_id = req.params.id;
-
-    // Check if item_id is equal to "error" to trigger the error
-    if (item_id === "error") {
-      throw new Error("Intentional server error");
-    }
-
-    const item = await invModel.getItemById(item_id);
+    const inv_id = req.params.id;
+    console.log("inv_id", inv_id);
+    const item = await invModel.getItemById(inv_id);
     if (!item) {
       return res.status(404).json({ message: "Vehicle not found" });
     }
-
+    const reviewsList = await utilities.buildReviewsList(
+      inv_id,
+      res.locals.loggedin
+    );
     const detail_view = await utilities.buildDetailView(item);
     let nav = await utilities.getNav();
 
@@ -42,6 +40,8 @@ invCont.getItemDetail = async function (req, res, next) {
       title: item.name,
       nav,
       detail_view,
+      inv_id,
+      reviewsList,
       item,
     });
   } catch (error) {
@@ -302,4 +302,48 @@ invCont.updateInventory = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Build inventory by classification view
+ * ************************** */
+invCont.buildByClassificationId = async function (req, res, next) {
+  const classification_id = req.params.classificationId;
+  const data = await invModel.getInventoryByClassificationId(classification_id);
+  const grid = await utilities.buildClassificationGrid(data);
+  let nav = await utilities.getNav();
+  const className = data[0].classification_name;
+  res.render("./inventory/classification", {
+    title: className,
+    nav,
+    grid,
+  });
+};
+
+/* ****************************************
+ *  Submit Review
+ * *************************************** */
+invCont.submitReview = async function (req, res, next) {
+  try {
+    console.log("controller reached");
+    const { review_text, account_id } = req.body;
+    const inv_id = req.params.id;
+    console.log("inv_id:", inv_id);
+    const subResult = await invModel.insertReviewById(
+      review_text,
+      inv_id,
+      account_id
+    );
+
+    if (subResult) {
+      req.flash("notice", "Review submitted successfully.");
+      res.status(201).redirect(`../detail/${inv_id}`);
+    } else {
+      req.flash("notice", "Sorry, review submission failed.");
+      res.status(500).redirect(`../detail/${inv_id}`);
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    req.flash("notice", "An unexpected error occurred.");
+    res.status(500).redirect(`../detail/${inv_id}`); // Ensure URL matches route
+  }
+};
 module.exports = invCont;

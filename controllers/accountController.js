@@ -127,12 +127,20 @@ async function accountLogin(req, res) {
 async function buildAccountView(req, res, next) {
   let nav = await utilities.getNav();
   const accountData = res.locals.accountData;
+  const account_id = accountData.account_id;
+  const reviewsData = await accountModel.getReviewsByAccountId(account_id);
+  const reviewsManagementList = await utilities.buildReviewsManagementList(
+    account_id
+  );
+
   res.render("../views/account/account_default.ejs", {
     title: "Account View",
     nav,
     accountType: accountData.account_type,
     firstName: accountData.account_firstname,
     account_id: accountData.account_id,
+    reviewsData: reviewsData,
+    reviewsManagementList: reviewsManagementList,
     errors: null,
   });
 }

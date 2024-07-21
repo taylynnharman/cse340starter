@@ -20,3 +20,12 @@
             <p><a href="/inv">Access Inventory Management</a></p>
         </div>
         <% } %>
+
+            <!-- Reviews List -->
+            <% if (reviewsData !=="undefined" && reviewsData.length> 0) { %>
+                <div class="reviews-management">
+                    <%- reviewsManagementList %>
+                </div>
+
+
+                <% } %>

@@ -52,8 +52,28 @@ async function getAccountByEmail(account_email) {
   }
 }
 
+/* ***************************
+ *  Get reviews data based on account id
+ * ************************** */
+async function getReviewsByAccountId(account_id) {
+  try {
+    const data = await pool.query(
+      `SELECT r.*, i.inv_make, i.inv_model
+       FROM public.reviews r
+       JOIN public.inventory i ON r.inv_id = i.inv_id
+       WHERE r.account_id = $1
+       ORDER BY r.review_date DESC`,
+      [account_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("getReviewsByAccountId error " + error);
+  }
+}
+
 module.exports = {
   registerAccount,
   checkExistingEmail,
   getAccountByEmail,
+  getReviewsByAccountId,
 };

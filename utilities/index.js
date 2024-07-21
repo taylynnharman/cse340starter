@@ -1,7 +1,17 @@
 const invModel = require("../models/inventory-model");
+const accountModel = require("../models/account-model");
 const Util = {};
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+
+/* **************************************
+ * Format Date from Database
+ * ************************************ */
+Util.formatDate = function (dateString) {
+  const date = new Date(dateString);
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString(undefined, options);
+};
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -165,7 +175,6 @@ Util.checkJWTToken = (req, res, next) => {
         }
         res.locals.accountData = accountData;
         res.locals.loggedin = 1;
-        console.log("JWT verified, accountData:", accountData);
         next();
       }
     );
@@ -213,56 +222,99 @@ Util.loginStatus = (req, res, next) => {
 /* ****************************************
  * Build Reviews List
  **************************************** */
-Util.buildReviewsList = async function (inv_id, loggedIn) {
+Util.buildReviewsList = async function (
+  inv_id,
+  loggedIn,
+  username,
+  account_id
+) {
   // Fetch the reviews for the given inv_id
   let data = await invModel.getReviewsById(inv_id);
-  console.log("data", data);
-  let reviewsList = '<div class="reviewsList"><h2>Reviews</h2>';
+  data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
 
+  let reviewsSection = "<div class='reviewsSection'> <h2>Reviews</h2>";
+  let reviewsList = "";
+  let reviewsForm = "";
+
+  reviewsList += "<div class='reviewsList-body'>";
   // Check if there are no reviews
   if (!data || data.length === 0) {
-    reviewsList += "<div class='reviewsList-body'>";
     reviewsList += "<p>Be the first to leave a review!</p>";
+  } else {
+    // Render reviews if they exist
+    reviewsList += "<ul class='reviews-list'>";
 
-    // Check if the user is logged in
-    if (!loggedIn || loggedIn === "undefined") {
-      reviewsList +=
-        "<p>You must be <a class='review-login' href='/account/login'>logged in</a> to leave a review</p>";
-    } else {
-      reviewsList += `<div class="reviews-form">
+    data.forEach((row) => {
+      const reviewUsername = `${row.account_firstname.charAt(0)}${
+        row.account_lastname
+      }`;
+      const formattedDate = Util.formatDate(row.review_date);
+      reviewsList += "<li class='review-item'>";
+      reviewsList += `<h4>${reviewUsername}</h4>`;
+      reviewsList += `<p>${row.review_text}</p>`;
+      reviewsList += `<p>${formattedDate}</p>`;
+      reviewsList += "</li>";
+    });
+
+    reviewsList += "</ul>";
+
+    reviewsList += "</div>";
+  }
+  // Check if the user is logged in
+  if (!loggedIn || loggedIn === "undefined") {
+    reviewsForm +=
+      "<p>You must be <a class='review-login' href='/account/login'>logged in</a> to leave a review</p>";
+  } else {
+    reviewsForm += `<div class="reviews-form">
              <h3>Write a review</h3>
              <form method="POST" action="/inv/detail/${inv_id}">
+               <div class="form-username">${username}</div>
                <div>
-                 <label for="user">Username:</label>
-                 <input type="text" id="username" name="username" required>
+                 <textarea id="review_text" name="review_text" placeholder="Write your review here..." required></textarea>
                </div>
-               <div>
-                 <label for="review">Review: </label>
-                 <textarea id="review_text" name="review_text" required></textarea>
-               </div>
+               <input type="hidden" name="inv_id" value="${inv_id}">
+               <input type="hidden" name="account_id" value="${account_id}">
                <div>
                  <button type="submit">Submit Review</button>
                </div>
              </form>
            </div>`;
-    }
-  } else {
-    // Render reviews if they exist
-    reviewsList += "<ul>";
-
-    data.forEach((row) => {
-      reviewsList += "<li>";
-      reviewsList += "<p>" + row.review_text + "</p>";
-      reviewsList += "<p>By: " + row.reviewer_name + "</p>";
-      reviewsList += "</li>";
-    });
-
-    reviewsList += "</ul>";
   }
+  reviewsSection += reviewsList;
+  reviewsSection += reviewsForm;
+  reviewsSection += "</div>";
+  return reviewsSection;
+};
+
+/* ****************************************
+ * Build Reviews Management List
+ **************************************** */
+Util.buildReviewsManagementList = async function (account_id) {
+  let data = await accountModel.getReviewsByAccountId(account_id);
+  console.log("reviews data", data);
+  data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
+
+  let reviewsSection =
+    "<div class='reviewsManagement'> <h3>Reviews Management</h2>";
+  let reviewsList = "";
+
+  reviewsList += "<div>";
+  reviewsList += "<ul class='reviews-management-list'>";
+
+  data.forEach((row) => {
+    const formattedDate = Util.formatDate(row.review_date);
+    reviewsList += "<li>";
+    reviewsList += `<p class="reviewManagerItem">Reviewed the ${row.inv_make} ${row.inv_model} - ${formattedDate} <a href="/reviews/edit/${row.review_id}" class="edit-link">Edit</a><a href="/reviews/delete/${row.review_id}" class="delete-link">Delete</a></p>`;
+
+    reviewsList += "</li>";
+  });
+
+  reviewsList += "</ul>";
 
   reviewsList += "</div>";
-
-  return reviewsList;
+  reviewsSection += reviewsList;
+  reviewsSection += "</div>";
+  return reviewsSection;
 };
 
 module.exports = Util;

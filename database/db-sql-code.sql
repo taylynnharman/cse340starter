@@ -277,4 +277,6 @@ CREATE TABLE public.reviews
   review_date timestamp with time zone NOT NULL DEFAULT NOW(),
   inv_id integer NOT NULL,
   account_id integer NOT NULL
+  CONSTRAINT fk_account FOREIGN KEY (account_id) REFERENCES public.accounts(account_id),
+  CONSTRAINT fk_inventory FOREIGN KEY (inv_id) REFERENCES public.inventory(inv_id)
 );

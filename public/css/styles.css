@@ -23,6 +23,7 @@ body {
 footer {
   font-size: small;
   padding-inline: 15px;
+  padding-top: 20px;
 }
 
 /* Header Start */
@@ -89,11 +90,13 @@ nav a {
 .home-header,
 h1,
 h2,
-.access-inv h3 {
+.access-inv h3,
+.reviewsManagement h3,
+.reviews-form h3 {
   font-family: var(--header-font);
   font-weight: 400;
   font-size: medium;
-  padding: 20px;
+  padding-block: 20px;
   text-transform: uppercase;
   margin: 0;
 }
@@ -141,12 +144,81 @@ h2,
 
 }
 
+.form-username {
+  font-family: var(--body-font);
+  padding-bottom: 10px;
+}
+
+.reviews-form textarea {
+  max-height: 200px;
+  min-height: 120px;
+}
+
 .reviews-list {
   line-height: 2rem;
   font-family: var(--header-font);
   font-size: smaller;
   margin: 0;
 }
+
+/* Basic styling for the reviews list */
+.reviews-list {
+  list-style-type: none;
+  /* Remove default list bullets */
+  padding: 0;
+  /* Remove default padding */
+  margin: 0;
+  /* Remove default margin */
+  border: 1px solid #ddd;
+  /* Add a light border around the list */
+  border-radius: 5px;
+  /* Rounded corners for the list */
+}
+
+/* Style for each review item */
+.review-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  line-height: 1.2;
+}
+
+.review-item h4 {
+  font-family: var(--body-font);
+}
+
+.reviews-management-list {
+  padding-left: 0px;
+  list-style: none;
+  width: 80%;
+  margin-inline: auto;
+  max-width: 500px;
+  min-width: min-content;
+}
+
+.reviewManagerItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Alternating background colors */
+.review-item:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+
+.review-item:last-child {
+  border-bottom: none;
+}
+
+
+.reviews-list {
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
 
 .upgrades {
   display: grid;
@@ -189,14 +261,11 @@ h2,
   list-style: none;
 }
 
-.reviewsList {
-  padding-bottom: 30px;
-}
-
-.reviewsList-body {
+.reviewsSection {
   font-family: var(--header-font);
   width: -webkit-fill-available;
   margin-inline: 30px;
+  padding-bottom: 30px;
 }
 
 /* Classification Page Start */
@@ -284,7 +353,8 @@ h2,
   cursor: pointer;
 }
 
-.review-login {
+.review-login,
+.reviewManagerItem a {
   text-decoration: none;
   color: var(--secondary-color)
 }
@@ -310,9 +380,11 @@ h2.welcome {
 
 .register-message a,
 .access-inv a,
-.update-link {
+.update-link,
+.reviewManagerItem a {
   color: var(--secondary-color);
   font-weight: bold;
+  text-decoration: none;
 }
 
 .access-inv a,
@@ -355,14 +427,6 @@ table tbody tr {
 
 table tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
-}
-
-.modify-link,
-.delete-link {
-  color: #009879;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
 }
 
 .edit-inventory {
@@ -419,17 +483,17 @@ table tbody tr:nth-of-type(even) {
     max-width: 100%;
   }
 
-  .reviews-list li {
-    font-size: large;
-    margin-block: 16px;
-  }
-
-  .reviewsList-body {
-    width: 60%;
-  }
-
   .hero-message h2 {
     font-size: x-large
+  }
+
+  .home-header,
+  h1,
+  h2,
+  .access-inv h3,
+  .reviewsManagement h3,
+  .reviews-form h3 {
+    padding: 20px;
   }
 
   body {
@@ -464,6 +528,13 @@ table tbody tr:nth-of-type(even) {
     list-style: none;
   }
 
+  .reviews-form form {
+    padding-inline: 20px;
+  }
+
+  .reviewsList-body {
+    padding-inline: 20px;
+  }
 
   /* Detail View End */
 }

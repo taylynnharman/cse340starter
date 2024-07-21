@@ -151,12 +151,16 @@ async function updateInventory(
 async function getReviewsById(inv_id) {
   try {
     const data = await pool.query(
-      `SELECT * FROM public.reviews WHERE inv_id = $1`,
+      `SELECT r.*, a.account_firstname, a.account_lastname
+       FROM public.reviews r
+       JOIN public.account a ON r.account_id = a.account_id
+       WHERE r.inv_id = $1
+       ORDER BY r.review_date DESC`,
       [inv_id]
     );
     return data.rows;
   } catch (error) {
-    console.error("getReviewsById error " + error);
+    console.error("getReviewsById error: " + error);
   }
 }
 
@@ -175,6 +179,24 @@ async function insertReviewById(review_text, inv_id, account_id) {
   }
 }
 
+/* ***************************
+ *  Delete Review from Account Page
+ * ************************** */
+async function deleteReviews() {
+  try {
+    const data = await pool.query(
+      `SELECT r.*, a.account_firstname, a.account_lastname
+       FROM public.reviews r
+       JOIN public.account a ON r.account_id = a.account_id
+       WHERE r.inv_id = $1
+       ORDER BY r.review_date DESC`,
+      [inv_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("getReviewsById error: " + error);
+  }
+}
 module.exports = {
   getClassifications,
   getInventoryByClassificationId,

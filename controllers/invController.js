@@ -24,18 +24,39 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.getItemDetail = async function (req, res, next) {
   try {
     const inv_id = req.params.id;
-    console.log("inv_id", inv_id);
     const item = await invModel.getItemById(inv_id);
+
     if (!item) {
+      // Item not found
       return res.status(404).json({ message: "Vehicle not found" });
     }
-    const reviewsList = await utilities.buildReviewsList(
-      inv_id,
-      res.locals.loggedin
-    );
-    const detail_view = await utilities.buildDetailView(item);
-    let nav = await utilities.getNav();
 
+    let reviewsList;
+    const loggedIn = res.locals.loggedin;
+
+    if (loggedIn) {
+      // User is logged in
+      const accountData = res.locals.accountData;
+      const username = `${accountData.account_firstname.charAt(0)}${
+        accountData.account_lastname
+      }`;
+      const account_id = accountData.account_id;
+      reviewsList = await utilities.buildReviewsList(
+        inv_id,
+        loggedIn,
+        username,
+        account_id
+      );
+    } else {
+      // User is not logged in
+      reviewsList = await utilities.buildReviewsList(inv_id, loggedIn);
+    }
+
+    // Build the detail view and navigation
+    const detail_view = await utilities.buildDetailView(item);
+    const nav = await utilities.getNav();
+
+    // Render the item detail view
     res.render("./inventory/detailView", {
       title: item.name,
       nav,
@@ -324,9 +345,11 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.submitReview = async function (req, res, next) {
   try {
     console.log("controller reached");
-    const { review_text, account_id } = req.body;
+
+    const { review_text } = req.body;
     const inv_id = req.params.id;
-    console.log("inv_id:", inv_id);
+    const accountData = res.locals.accountData;
+    const account_id = accountData.account_id;
     const subResult = await invModel.insertReviewById(
       review_text,
       inv_id,
@@ -335,14 +358,17 @@ invCont.submitReview = async function (req, res, next) {
 
     if (subResult) {
       req.flash("notice", "Review submitted successfully.");
+      console.log("Review submitted successfullly");
       res.status(201).redirect(`../detail/${inv_id}`);
     } else {
       req.flash("notice", "Sorry, review submission failed.");
+      console.log("Review submission failed");
       res.status(500).redirect(`../detail/${inv_id}`);
     }
   } catch (error) {
     console.error("Error:", error);
     req.flash("notice", "An unexpected error occurred.");
+    console.log("Unexpected error");
     res.status(500).redirect(`../detail/${inv_id}`); // Ensure URL matches route
   }
 };

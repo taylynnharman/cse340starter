@@ -4,6 +4,7 @@ const router = new express.Router();
 const invController = require("../controllers/invController");
 const utilities = require("../utilities/index");
 const invValidate = require("../utilities/inventory-validation");
+const reviewController = require("../controllers/reviewsController");
 
 // Route to build inventory by classification view
 router.get(
@@ -15,13 +16,15 @@ router.get(
 router.get("/detail/:id", utilities.handleErrors(invController.getItemDetail));
 
 // Route to post reviews on detail view
-router.post("/detail/:id", utilities.handleErrors(invController.submitReview));
+router.post(
+  "/detail/:id",
+  utilities.handleErrors(reviewController.submitReview)
+);
 
 // Route to trigger error
 router.get("/triggerError", utilities.handleErrors(invController.triggerError));
 
-// Route to build management view  Util.checkJWTToken,
-
+// Route to build management
 utilities.handleErrors(invController.buildManagement);
 router.get(
   "/",

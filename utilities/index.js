@@ -1,5 +1,5 @@
 const invModel = require("../models/inventory-model");
-const accountModel = require("../models/account-model");
+const reviewsModel = require("../models/reviews-model");
 const Util = {};
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -229,7 +229,7 @@ Util.buildReviewsList = async function (
   account_id
 ) {
   // Fetch the reviews for the given inv_id
-  let data = await invModel.getReviewsById(inv_id);
+  let data = await reviewsModel.getReviewsById(inv_id);
   data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
 
   let reviewsSection = "<div class='reviewsSection'> <h2>Reviews</h2>";
@@ -290,7 +290,7 @@ Util.buildReviewsList = async function (
  * Build Reviews Management List
  **************************************** */
 Util.buildReviewsManagementList = async function (account_id) {
-  let data = await accountModel.getReviewsByAccountId(account_id);
+  let data = await reviewsModel.getReviewsByAccountId(account_id);
   console.log("reviews data", data);
   data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
 
@@ -302,9 +302,10 @@ Util.buildReviewsManagementList = async function (account_id) {
   reviewsList += "<ul class='reviews-management-list'>";
 
   data.forEach((row) => {
+    const review_id = row.review_id;
     const formattedDate = Util.formatDate(row.review_date);
     reviewsList += "<li>";
-    reviewsList += `<p class="reviewManagerItem">Reviewed the ${row.inv_make} ${row.inv_model} - ${formattedDate} <a href="/reviews/edit/${row.review_id}" class="edit-link">Edit</a><a href="/reviews/delete/${row.review_id}" class="delete-link">Delete</a></p>`;
+    reviewsList += `<p class="reviewManagerItem">Reviewed the ${row.inv_make} ${row.inv_model} - ${formattedDate} <a href="/reviews/edit/${review_id}" class="edit-link">Edit</a><a href="/reviews/delete/${review_id}" class="delete-link">Delete</a></p>`;
 
     reviewsList += "</li>";
   });
@@ -317,4 +318,40 @@ Util.buildReviewsManagementList = async function (account_id) {
   return reviewsSection;
 };
 
+/* ****************************************
+ * Build Delete Reviews Form
+ **************************************** */
+Util.buildDeleteReviewForm = async function (review_id) {
+  try {
+    const data = await reviewsModel.getReviewsByReviewId(review_id);
+    console.log("data", data);
+    if (!data || data.length === 0) {
+      throw new Error("Review not found");
+    }
+    const formattedDate = Util.formatDate(data.review_date);
+
+    const deleteReviewForm = `
+    <div class='delete-form'>
+      <form method='POST' action='/reviews/delete/${data.review_id}'>
+      <div class='form-group'>
+        <label for='review_date'>Review Date:</label>
+        <input type='text' id='review_date' name='review_date' value='${formattedDate}' readonly class='form-control'>
+      </div>
+    
+      <div class='form-group'>
+        <label for='review_text'>Review Text:</label>
+        <input type='text' id='review_text' name='review_text' value='${data.review_text}' readonly class='form-control'>
+      </div>
+      <p>Deleting this review is permanent and cannot be undone.</p>
+    
+      <button type='submit' class='delete-button'>Delete</button>
+    </form></div>
+  `;
+
+    return deleteReviewForm;
+  } catch (error) {
+    console.error("buildDeleteReviewForm error: " + error);
+    throw error;
+  }
+};
 module.exports = Util;

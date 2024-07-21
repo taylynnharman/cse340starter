@@ -339,37 +339,4 @@ invCont.buildByClassificationId = async function (req, res, next) {
   });
 };
 
-/* ****************************************
- *  Submit Review
- * *************************************** */
-invCont.submitReview = async function (req, res, next) {
-  try {
-    console.log("controller reached");
-
-    const { review_text } = req.body;
-    const inv_id = req.params.id;
-    const accountData = res.locals.accountData;
-    const account_id = accountData.account_id;
-    const subResult = await invModel.insertReviewById(
-      review_text,
-      inv_id,
-      account_id
-    );
-
-    if (subResult) {
-      req.flash("notice", "Review submitted successfully.");
-      console.log("Review submitted successfullly");
-      res.status(201).redirect(`../detail/${inv_id}`);
-    } else {
-      req.flash("notice", "Sorry, review submission failed.");
-      console.log("Review submission failed");
-      res.status(500).redirect(`../detail/${inv_id}`);
-    }
-  } catch (error) {
-    console.error("Error:", error);
-    req.flash("notice", "An unexpected error occurred.");
-    console.log("Unexpected error");
-    res.status(500).redirect(`../detail/${inv_id}`); // Ensure URL matches route
-  }
-};
 module.exports = invCont;

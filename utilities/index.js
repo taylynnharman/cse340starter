@@ -230,6 +230,7 @@ Util.buildReviewsList = async function (
 ) {
   // Fetch the reviews for the given inv_id
   let data = await reviewsModel.getReviewsById(inv_id);
+  console.log("data", data);
   data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
 
   let reviewsSection = "<div class='reviewsSection'> <h2>Reviews</h2>";

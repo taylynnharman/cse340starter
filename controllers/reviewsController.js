@@ -59,7 +59,7 @@ revCont.deleteReview = async function (req, res, next) {
     await revModel.deleteReview(review_id);
 
     req.flash("success", "Review Successfully Deleted");
-    res.redirect("/inv");
+    res.redirect("/account");
   } catch (error) {
     req.flash("error", "Sorry there was an error deleting the review.");
     console.error("deleteReview error: " + error.message);
@@ -104,7 +104,7 @@ revCont.editReview = async function (req, res, next) {
     await revModel.editReview(review_id, review_text);
 
     req.flash("success", "Review Successfully Edited");
-    res.redirect("/inv");
+    res.redirect("/account");
   } catch (error) {
     req.flash("error", "Sorry there was an error editing the review.");
     console.error("editReview error: " + error.message);

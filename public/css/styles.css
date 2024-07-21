@@ -299,7 +299,8 @@ h2,
 .register-form,
 .add-classification-form,
 .edit-classification-form,
-.delete-form form {
+.delete-form form,
+.edit-form form {
   width: fit-content;
   text-align: center;
   background: var(--primary-color);
@@ -316,7 +317,8 @@ h2,
 .add-classification-form div,
 .classificationList div,
 .edit-classification-form div,
-.delete-form div {
+.delete-form div,
+.edit-form div {
   line-height: 30px;
   font-family: var(--header-font);
   text-align: left;
@@ -331,7 +333,9 @@ h2,
 .edit-classification-form textarea,
 .reviews-form input,
 .reviews-form textarea,
-.delete-form input {
+.delete-form input,
+.edit-form input,
+.edit-form textarea {
   width: -webkit-fill-available;
   padding-block: 1px;
   font-family: var(--header-font);
@@ -344,7 +348,8 @@ h2,
 .add-classification-form button,
 .edit-classification-form button,
 .reviews-form button,
-button.delete-button {
+button.delete-button,
+.edit-form button {
   background: var(--secondary-color);
   padding: 10px;
   color: var(--light-text);

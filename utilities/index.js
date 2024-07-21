@@ -291,7 +291,6 @@ Util.buildReviewsList = async function (
  **************************************** */
 Util.buildReviewsManagementList = async function (account_id) {
   let data = await reviewsModel.getReviewsByAccountId(account_id);
-  console.log("reviews data", data);
   data.sort((a, b) => new Date(b.review_date) - new Date(a.review_date));
 
   let reviewsSection =
@@ -305,7 +304,7 @@ Util.buildReviewsManagementList = async function (account_id) {
     const review_id = row.review_id;
     const formattedDate = Util.formatDate(row.review_date);
     reviewsList += "<li>";
-    reviewsList += `<p class="reviewManagerItem">Reviewed the ${row.inv_make} ${row.inv_model} - ${formattedDate} <a href="/reviews/edit/${review_id}" class="edit-link">Edit</a><a href="/reviews/delete/${review_id}" class="delete-link">Delete</a></p>`;
+    reviewsList += `<p class="reviewManagerItem">Reviewed the ${row.inv_make} ${row.inv_model} - ${formattedDate} <a href="/reviews/edit/${review_id}?inv_id=${row.inv_id}" class="edit-link">Edit</a><a href="/reviews/delete/${review_id}?inv_id=${row.inv_id}" class="delete-link">Delete</a></p>`;
 
     reviewsList += "</li>";
   });
@@ -361,7 +360,6 @@ Util.buildDeleteReviewForm = async function (review_id) {
 Util.buildEditReviewForm = async function (review_id) {
   try {
     const data = await reviewsModel.getReviewsByReviewId(review_id);
-    console.log("data", data);
 
     if (!data || data.length === 0) {
       throw new Error("Review not found");

@@ -1,4 +1,5 @@
 const revModel = require("../models/reviews-model");
+const invModel = require("../models/inventory-model.js");
 const utilities = require("../utilities/");
 const revCont = {};
 /* ****************************************
@@ -7,7 +8,6 @@ const revCont = {};
 revCont.submitReview = async function (req, res, next) {
   const { review_text } = req.body;
   const inv_id = req.params.id;
-  console.log("inv_id", inv_id);
   const accountData = res.locals.accountData;
   const account_id = accountData.account_id;
   const subResult = await revModel.insertReviewById(
@@ -33,13 +33,16 @@ revCont.submitReview = async function (req, res, next) {
 revCont.buildDeleteReviewView = async function (req, res, next) {
   try {
     const review_id = req.params.review_id;
+    const inv_id = req.query.inv_id;
+    const inventoryData = await invModel.getItemById(inv_id);
     const deleteReviewForm = await utilities.buildDeleteReviewForm(review_id);
     let nav = await utilities.getNav();
 
     res.render("./reviews/delete", {
-      title: "Delete Review",
+      title: `Delete Review for ${inventoryData.inv_make} ${inventoryData.inv_model}`,
       nav,
       deleteReviewForm,
+      inv_id,
     });
   } catch (error) {
     next(error);
@@ -70,11 +73,13 @@ revCont.deleteReview = async function (req, res, next) {
 revCont.buildEditReviewView = async function (req, res, next) {
   try {
     const review_id = req.params.review_id;
+    const inv_id = req.query.inv_id;
+    const inventoryData = await invModel.getItemById(inv_id);
     const editReviewForm = await utilities.buildEditReviewForm(review_id);
     let nav = await utilities.getNav();
 
     res.render("./reviews/edit", {
-      title: "Edit Review",
+      title: `Edit Review for ${inventoryData.inv_make} ${inventoryData.inv_model}`,
       nav,
       editReviewForm,
     });

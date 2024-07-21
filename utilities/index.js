@@ -333,12 +333,12 @@ Util.buildDeleteReviewForm = async function (review_id) {
     const deleteReviewForm = `
     <div class='delete-form'>
       <form method='POST' action='/reviews/delete/${data.review_id}'>
-      <div class='form-group'>
+      <div>
         <label for='review_date'>Review Date:</label>
         <input type='text' id='review_date' name='review_date' value='${formattedDate}' readonly class='form-control'>
       </div>
     
-      <div class='form-group'>
+      <div>
         <label for='review_text'>Review Text:</label>
         <input type='text' id='review_text' name='review_text' value='${data.review_text}' readonly class='form-control'>
       </div>
@@ -354,4 +354,41 @@ Util.buildDeleteReviewForm = async function (review_id) {
     throw error;
   }
 };
+
+/* ****************************************
+ * Build Edit Reviews Form
+ **************************************** */
+Util.buildEditReviewForm = async function (review_id) {
+  try {
+    const data = await reviewsModel.getReviewsByReviewId(review_id);
+    console.log("data", data);
+
+    if (!data || data.length === 0) {
+      throw new Error("Review not found");
+    }
+    const formattedDate = Util.formatDate(data.review_date);
+
+    const editReviewForm = `
+    <div class='edit-form'>
+      <form method='POST' action='/reviews/update/${data.review_id}'>
+      <div>
+        <label for='review_date'>Review Date:</label>
+        <input type='text' id='review_date' name='review_date' value='${formattedDate}' readonly class='form-control'>
+      </div>
+    
+      <div>
+        <label for='review_text'>Review Text:</label>
+        <textarea id='review_text' name='review_text' class='form-control'>${data.review_text}</textarea>
+      </div>
+      <button type='submit' class='submit-button'>Update Review</button>
+    </form></div>
+  `;
+
+    return editReviewForm;
+  } catch (error) {
+    console.error("buildEditReviewForm error: " + error);
+    throw error;
+  }
+};
+
 module.exports = Util;

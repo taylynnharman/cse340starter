@@ -64,4 +64,47 @@ revCont.deleteReview = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Build edit reviews view
+ * ************************** */
+revCont.buildEditReviewView = async function (req, res, next) {
+  try {
+    const review_id = req.params.review_id;
+    const editReviewForm = await utilities.buildEditReviewForm(review_id);
+    let nav = await utilities.getNav();
+
+    res.render("./reviews/edit", {
+      title: "Edit Review",
+      nav,
+      editReviewForm,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+/* ***************************
+ *  Process edit review
+ * ************************** */
+revCont.editReview = async function (req, res, next) {
+  try {
+    const review_id = req.params.review_id;
+    const { review_text } = req.body;
+
+    if (!review_text) {
+      req.flash("error", "Review text is required.");
+      return res.redirect(`/reviews/edit/${review_id}`);
+    }
+
+    await revModel.editReview(review_id, review_text);
+
+    req.flash("success", "Review Successfully Edited");
+    res.redirect("/inv");
+  } catch (error) {
+    req.flash("error", "Sorry there was an error editing the review.");
+    console.error("editReview error: " + error.message);
+    next(error);
+  }
+};
+
 module.exports = revCont;

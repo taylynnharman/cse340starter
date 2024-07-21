@@ -84,10 +84,30 @@ async function deleteReview(review_id) {
     console.error("getReviewsById error: " + error);
   }
 }
+
+/* ***************************
+ *  Edit Review
+ * ************************** */
+async function editReview(review_id, review_text) {
+  try {
+    const result = await pool.query(
+      `UPDATE public.reviews
+           SET review_text = $1
+           WHERE review_id = $2`,
+      [review_text, review_id]
+    );
+    return result;
+  } catch (error) {
+    console.error("editReview error: " + error);
+    throw error;
+  }
+}
+
 module.exports = {
   getReviewsById,
   getReviewsByAccountId,
   insertReviewById,
   deleteReview,
   getReviewsByReviewId,
+  editReview,
 };

@@ -25,7 +25,7 @@ invCont.getItemDetail = async function (req, res, next) {
   try {
     const inv_id = req.params.id;
     const item = await invModel.getItemById(inv_id);
-
+    console.log("itme data", item);
     if (!item) {
       // Item not found
       return res.status(404).json({ message: "Vehicle not found" });
@@ -55,10 +55,10 @@ invCont.getItemDetail = async function (req, res, next) {
     // Build the detail view and navigation
     const detail_view = await utilities.buildDetailView(item);
     const nav = await utilities.getNav();
-
+    const itemName = `${item.inv_model} ${item.inv_make}`;
     // Render the item detail view
     res.render("./inventory/detailView", {
-      title: item.name,
+      title: itemName,
       nav,
       detail_view,
       inv_id,

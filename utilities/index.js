@@ -113,12 +113,15 @@ Util.buildDetailView = async function (data) {
       data.inv_model
     } </h2>
             <hr />
-            <h3 class="detail-list"><li>Mileage: ${new Intl.NumberFormat(
-              "en-US"
-            ).format(data.inv_miles)}</li>
-             <li>Price: $${new Intl.NumberFormat("en-US").format(
-               data.inv_price
-             )}</li></h3>
+            <ul class="detail-list">
+            <li>Mileage: ${new Intl.NumberFormat("en-US").format(
+              data.inv_miles
+            )}</li>
+            <li>Price: $${new Intl.NumberFormat("en-US").format(
+              data.inv_price
+            )}</li>
+          </ul>
+          
   
           </div>
       </div>`;
@@ -259,6 +262,7 @@ Util.buildReviewsList = async function (
 
     reviewsList += "</ul>";
 
+    reviewsList += "</div>";
     reviewsList += "</div>";
   }
   // Check if the user is logged in
